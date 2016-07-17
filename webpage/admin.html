@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/Javascript">
+var user = "";
+var pass = "";
+    function login()
+    {
+      user = document.getElementById('user').value;
+      pass = document.getElementById('pass').value;
+      $.ajax({type: "POST", url: "http://test2.pe57uyjcay.us-west-2.elasticbeanstalk.com/login", data: {"user": user, "pass": pass}}).done(function(result)
+      {
+        if(result=="success")
+        {
+          getBlogPosts();
+        }
+      else alert("Wrong username/password");
+      });
+    }
+
+    function getBlogPosts()
+    {
+      $.ajax({type: "GET", url: "http://test2.pe57uyjcay.us-west-2.elasticbeanstalk.com/", data: {}, dataType: "json"}).done(function(result)
+      {
+        document.getElementById('page').innerHTML =
+          "<form>" +
+          "<input type=\"text\" value=\"" + result + "\" id=\"post\" name=\"post\"><br>" +
+          "<input type=\"submit\" value=\"Edit\">" +
+          "</form>";
+      });
+    }
+</script>
+
+</head>
+<body>
+
+<a href="/admin.html">Admin</a><br>
+<div id="page">
+  <form onsubmit="login();return false;">
+  <input type="text" name="user" id="user"> <br>
+  <input type="password" name="pass" id="pass"> <br>
+  <input type="submit" value="Login">
+  </form>
+</div>
+
+
+</body>
+</html>

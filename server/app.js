@@ -1,6 +1,9 @@
 var express = require("express");
 var request = require("request");
+var bodyParser = require('body-parser');
+
 var app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -21,6 +24,11 @@ app.get('/', function (req, res, next) {
     json=JSON.parse(body);
     res.send(json.posts);
   });
+});
+
+app.post('/login', function (req, res, next) {
+    if(auth(req.param.user,req.param.pass)) res.send("success");
+    else res.send(req.param.user);
 });
 
 app.listen(process.env.PORT || 3000, function () {

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/Javascript">
+  window.onload = $.ajax({type: "GET", url: "http://test2.pe57uyjcay.us-west-2.elasticbeanstalk.com/", data: {}, dataType: "json"}).done(function(result)
+    {
+      document.getElementById("posts").innerHTML = result;
+      //json = JSON.parse(result);
+      //document.getElementById("posts").innerHTML += json[0];
+    });
+</script>
+
+</head>
+<body>
+
+<a href="/admin.html">Admin</a><br>
+<div id="posts">
+
+</div>
+
+
+</body>
+</html>

@@ -5,13 +5,13 @@
 <script type="text/Javascript">
 var user = "";
 var pass = "";
-    function login()
+    function login() //checks with the server if the user is logged in
     {
-      user = document.getElementById('user').value;
-      pass = document.getElementById('pass').value;
+      user = document.getElementById('user').value; //saves the username
+      pass = document.getElementById('pass').value; //saves the password
       $.ajax({type: "POST", url: "http://test2.pe57uyjcay.us-west-2.elasticbeanstalk.com/login", data: {"user": user, "pass": pass}}).done(function(result)
       {
-        if(result=="success")
+        if(result=="success") //the username is correct
         {
           getBlogPosts();
         }
@@ -19,7 +19,7 @@ var pass = "";
       });
     }
 
-    function getBlogPosts()
+    function getBlogPosts() //fetches all the blogposts and sets up a form
     {
       $.ajax({type: "GET", url: "http://test2.pe57uyjcay.us-west-2.elasticbeanstalk.com/", data: {}, dataType: "json"}).done(function(result)
       {
@@ -27,13 +27,13 @@ var pass = "";
         var json = JSON.parse(result);
         for(var i=0; i<json.length; i++)
           html += "<textarea id=\"post"+i.toString()+"\" name=\"post"+i.toString()+"\">" + json[i] + "</textarea><br>\n";
-        html += "new:<br><textarea id=\"post_new\" name=\"post_new\"></textarea><br>\n";
+        html += "new:<br><textarea id=\"post_new\" name=\"post_new\"></textarea><br>\n"; //text area for new post
         html += "<input type=\"submit\" value=\"Edit\">\n</form>";
         document.getElementById("page").innerHTML = html;
       });
     }
 
-    function edit()
+    function edit() //updates the server with the new data
     {
       var json = "{\"posts\":[";
       var i = 0;
@@ -44,7 +44,7 @@ var pass = "";
       }
       json = json.substring(0, json.length - 1);
       var new_post = document.getElementById("post_new").value;
-      if(new_post!="") json += ",\"" + new_post + "\"";
+      if(new_post!="") json += ",\"" + new_post + "\""; //if the textarea is empty, no new posts will be added
       json += "]}";
       $.ajax({type: "POST", url: "http://test2.pe57uyjcay.us-west-2.elasticbeanstalk.com/add", data: {"json" : json, "user" : user, "pass" : pass}, dataType: "json"}).done(function(result)
       {

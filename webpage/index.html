@@ -3,7 +3,7 @@
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/Javascript">
-  window.onload = $.ajax({type: "GET", url: "http://test2.pe57uyjcay.us-west-2.elasticbeanstalk.com/", data: {}}).done(function(result)
+  window.onload = $.ajax({type: "GET", url: "http://test2.pe57uyjcay.us-west-2.elasticbeanstalk.com/", data: {}}).done(function(result) //fetches blogposts
     {
       json = JSON.parse(result);
       for(var i=0; i<json.length; i++)

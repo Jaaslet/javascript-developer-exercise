@@ -3,11 +3,11 @@
 <head>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/Javascript">
-  window.onload = $.ajax({type: "GET", url: "http://test2.pe57uyjcay.us-west-2.elasticbeanstalk.com/", data: {}, dataType: "json"}).done(function(result)
+  window.onload = $.ajax({type: "GET", url: "http://test2.pe57uyjcay.us-west-2.elasticbeanstalk.com/", data: {}}).done(function(result)
     {
-      document.getElementById("posts").innerHTML = result;
-      //json = JSON.parse(result);
-      //document.getElementById("posts").innerHTML += json[0];
+      json = JSON.parse(result);
+      for(var i=0; i<json.length; i++)
+        document.getElementById("posts").innerHTML += json[i] + "<br>";
     });
 </script>
 

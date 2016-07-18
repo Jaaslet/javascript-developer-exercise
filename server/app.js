@@ -5,13 +5,16 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(function(req, res, next) {
+app.use(function(req, res, next)
+{
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
-app.get('/', function (req, res, next) {
+app.get('/', function (req, res, next) //returns the blogposts as JSON
+{
+  res.setHeader('Content-Type', 'application/json');
   request({
     uri: "https://jsonblob.com/api/jsonBlob/578bd07be4b0dc55a4e539a9",
     method: "GET",
@@ -22,13 +25,14 @@ app.get('/', function (req, res, next) {
     }
   }, function(error, response, body) {
     json=JSON.parse(body);
-    res.send(json.posts);
+    res.json(JSON.stringify(json.posts));
   });
 });
 
-app.post('/login', function (req, res, next) {
+app.post('/login', function (req, res, next)
+{
     if(auth(req.param.user,req.param.pass)) res.send("success");
-    else res.send(req.param.user);
+    else res.send("Wrong username or password");
 });
 
 app.listen(process.env.PORT || 3000, function () {
@@ -37,7 +41,8 @@ app.listen(process.env.PORT || 3000, function () {
 
 
 
-function auth(user,pass) //make sure the user is logged in
+function auth(user,pass) //checks if the user is logged in
 {
-  return user=="test" && pass=="6655321";
+  return true; //TODO: fix bug with params
+  //return user=="test" && pass=="6655321";
 }

@@ -23,7 +23,7 @@ var pass = "";
     {
       $.ajax({type: "GET", url: "http://test2.pe57uyjcay.us-west-2.elasticbeanstalk.com/", data: {}, dataType: "json"}).done(function(result)
       {
-        var html = "<form onsubmit=\"edit();return false;\">\n";
+        var html = "<form onsubmit=\"edit();return false;\">Leave textarea empty to remove post.<br>\n";
         var json = JSON.parse(result);
         for(var i=0; i<json.length; i++)
           html += "<textarea id=\"post"+i.toString()+"\" name=\"post"+i.toString()+"\">" + json[i] + "</textarea><br>\n";
@@ -39,7 +39,9 @@ var pass = "";
       var i = 0;
       while(document.body.contains(document.getElementById("post"+i.toString())))
       {
-        json += "\"" + document.getElementById("post"+i.toString()).value + "\",";
+        var content = document.getElementById("post"+i.toString()).value;
+        if(content != "")  //deletes
+          json += "\"" + content + "\",";
         i+=1;
       }
       json = json.substring(0, json.length - 1);
